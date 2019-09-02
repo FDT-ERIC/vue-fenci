@@ -68,7 +68,7 @@ let routes = [
     {
         path:'*',
         redirect:{name:'index'}, //网址错误时，重定向到 index 主界面
-    }
+    },
 ]
 
 // 获取路由信息方法 (递归)
