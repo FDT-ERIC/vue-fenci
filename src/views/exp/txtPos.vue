@@ -1,7 +1,7 @@
 <template>
     <div>
         POS
-        <button @click="abc">登录</button>
+        <!-- <button @click="abc">登录</button> -->
         <div>{{ info }}</div>
     </div>
 </template>

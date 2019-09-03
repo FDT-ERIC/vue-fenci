@@ -200,9 +200,4 @@ export default {
 </script>
 
 <style>
-#box_relative {
-  position: absolute;
-  left: 30px;
-  top: 20px;
-}
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
     文本分类
-    <button @click="abc">登录</button>
+    <!-- <button @click="abc">登录</button> -->
     <div>{{ info }}</div>
   </div>
 </template>

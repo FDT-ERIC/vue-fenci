@@ -1,6 +1,6 @@
 module.exports = {
   lintOnSave: false,
-
+  publicPath : "./",
   devServer: {
     open: true,
     host: 'localhost',
