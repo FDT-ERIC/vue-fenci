@@ -13,9 +13,9 @@
             style="margin-left:10px"
             placeholder="例如：创新工场大湾区人工智能工程院"
           >
-            <el-button  @click="abc" slot="append" icon="el-icon-search"></el-button>
+            <el-button @click="submitBtn" slot="append" icon="el-icon-search"></el-button>
           </el-input>
-          <el-form-item label="分析结果"></el-form-item>
+          <el-form-item v-model="form.waiting" label="分析结果">{{waiting}}</el-form-item>
           <!-- <div
             style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .24); height:100px; width:20%; margin: 0 0 30px 10px; padding:5px"
           >
@@ -33,7 +33,12 @@
             style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .24); height:45px; width:8%; margin: 0 0 30px 10px; padding:5px"
           >
             <div style="text-align:center">
-              <el-tag type="success" effect="plain" style="display:block;margin:0 auto">
+              <el-tag
+                v-model="form.resultType"
+                :type="this.resultType"
+                effect="plain"
+                style="display:block;margin:0 auto"
+              >
                 {{this.info}}
                 <!-- <i class="el-icon-check">加上一个勾</i> -->
               </el-tag>
@@ -62,26 +67,34 @@ export default {
       tabIndex: 0,
       form: {
         input: "", // 标题
-        category: [], // 多层分类
-        output: ""
+        // category: [], // 多层分类
+        waiting: "", // 分析中，或者分析结束
+        output: "",
+        resultType: "" // 设置结果的颜色状态，积极为绿色，消极为红色
       }
     };
   },
   methods: {
-    abc() {
+    submitBtn() {
+      this.waiting = "分析中，请稍后",
       this.$axios
         .post(
           "/base/sentiment_analysis",
           qs.stringify({ text: this.form.input }),
-          console.log(this.form.input)
         )
         .then(res => {
-          this.info = res.data;
+          let param = res.data.res["label"];
+          if (param == "0") {
+            this.info = "消极";
+            this.resultType = "danger";
+          } else {
+            this.info = "积极";
+            this.resultType = "success";
+          }
+          this.waiting = "分析结束"
         });
     },
-    handelClick(tab, event) {
-      console.log(tab.index);
-    }
+    handelClick(tab, event) {}
   }
 };
 </script>
