@@ -13,18 +13,18 @@ let routes = [
         // component:()=>import('../../views/layout.vue'),
         component:'layout',
         children:[
-            {
-                // path:'/index',
-                // name:'index',
-                // component:()=>import('../../views/index/index.vue')
-                meta:{title:'效果体验'},
-                component:'index/index'
-            },
+            // {
+            //     // path:'/index',
+            //     // name:'index',
+            //     // component:()=>import('../../views/index/index.vue')
+            //     meta:{title:'效果体验'},
+            //     component:'exp/home'
+            // },
             {
                 // path:'/shop/goods/list',
                 meta:{title:'后台首页'},
                 // component:'shop/goods/list'
-                component:'exp/home'
+                component:'index/index'
             },
             {
                 // path:'/shop/goods/list',
@@ -56,6 +56,19 @@ let routes = [
                 // component:'shop/goods/list'
                 component:'exp/txtPos'
             },
+        ]
+    },
+    {
+        path:'/',
+        name:'layout',
+        redirect:{name:'index'}, //重定向到 index 主界面
+        // component:()=>import('../../views/layout.vue'),
+        component:'layout',
+        children:[
+            {
+                meta:{title: '算法解析'},
+                component: 'solution/test'
+            }
         ]
     },
     {

@@ -51,7 +51,7 @@ export default {
                 {
                     icon: "el-icon-notebook-1",
                     name: "算法解析",
-                    pathname:"temp_test"
+                    pathname:"solution_test"
                 }
             ]
           },

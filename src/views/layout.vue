@@ -31,7 +31,7 @@
               <el-avatar
                 size="small"
                 src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
-              ></el-avatar> 账户信息
+              ></el-avatar>账户信息
             </template>
             <el-menu-item index="100-1">个人中心</el-menu-item>
             <el-menu-item index="100-2">退出登录</el-menu-item>
@@ -42,7 +42,7 @@
       <el-container style="height:100%;">
         <!-- 侧边布局 -->
         <el-aside width="200px">
-          <el-menu default-active="0" @select="slideSelect" style="height:100%">
+          <el-menu :default-active="slideMenuActive" @select="slideSelect" style="height:100%">
             <el-menu-item
               v-for="(item, index) in slideMenus"
               :index="index|numToString"
@@ -54,9 +54,9 @@
           </el-menu>
         </el-aside>
         <!-- 主布局 -->
-        <el-main>
+        <el-main class="bg-light">
           <!-- 面包屑导航 -->
-          <div class="border-bottom mb-3" v-if="bran.length > 0" style="padding:20px; margin:-20px">
+          <div class="border-bottom mb-3 bg-white" v-if="bran.length > 0" style="padding:20px; margin:-20px">
             <el-breadcrumb separator-class="el-icon-arrow-right">
               <el-breadcrumb-item
                 v-for="(item, index) in bran"
@@ -65,8 +65,21 @@
               >{{item.title}}</el-breadcrumb-item>
             </el-breadcrumb>
           </div>
-          <!-- 主内容 -->
+          <!-- 主内容 --> 
           <router-view></router-view>
+          <!-- 回到顶部按钮 -->
+          <el-backtop target=".el-main" :bottom="100">
+            <div style="
+                height: 100%;
+                width: 100%;
+                background-color: #f2f5f6;
+                box-shadow: 0 0 6px rgba(0,0,0, .12);
+                text-align: center;
+                line-height: 40px;
+                color: #1989fa;">
+              UP
+            </div>
+          </el-backtop>
         </el-main>
       </el-container>
     </el-container>
@@ -93,18 +106,21 @@ export default {
     this.navBar = this.$conf.navBar;
     // 获取面包屑导航
     this.getRouterBran();
+    // 初始化选中菜单
+    this.__initNavBar();
   },
 
   watch: {
     $route(to, from) {
-      // if (to.name === "index") {
-      //   this.bran = []
-      // }
-      // else {
-      //   this.getRouterBran();
-      // }
-      // console.log(to),
-      // console.log(from)
+      // 本地存储，防止页面刷新后回到首页
+      localStorage.setItem(
+        "navActive",
+        JSON.stringify({
+          top: this.navBar.active,
+          left: this.slideMenuActive
+        })
+      );
+      // 获取面包屑导航
       this.getRouterBran();
     }
   },
@@ -130,6 +146,11 @@ export default {
     // 针对顶部导航栏，更新点击位置
     handleSelect(key, keyPath) {
       this.navBar.active = key;
+      // 默认跳转到当前激活的那一个
+      // this.slideMenuActive = '0'
+      this.$router.push({
+        name: this.slideMenus[this.slideMenuActive].pathname
+      });
     },
 
     // 针对侧边导航栏，维持点击位置不变
@@ -144,14 +165,13 @@ export default {
     // 获取面包屑导航
     getRouterBran() {
       let b = this.$route.matched.filter(v => v.name);
-      console.log(b)
+      // console.log(b)
       let arr = [];
       b.forEach((v, k) => {
         // 过滤 layout 和 index
         // console.log(v)
-        console.log(k)
         if (v.name === "index" || v.name === "layout") {
-          this.bran = []
+          this.bran = [];
           return;
         }
         arr.push({
@@ -164,10 +184,25 @@ export default {
         }
         this.bran = arr;
       });
+    },
+
+    // 防止刷新页面后自动回到首页
+    __initNavBar() {
+      let r = localStorage.getItem("navActive");
+      if (r) {
+        r = JSON.parse(r);
+        this.navBar.active = r.top;
+        this.slideMenuActive = r.left;
+      }
     }
   }
 };
 </script>
 
 <style>
+#box_relative {
+  position: absolute;
+  left: 30px;
+  top: 20px;
+}
 </style>
