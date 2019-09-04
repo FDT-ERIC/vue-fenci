@@ -1,6 +1,6 @@
 export default {
 
-    main_logo:"创新工场 AI 工程院",
+    main_logo:"创新工场大湾区AI研究院",
 
     login_logo:"AI PARTICIPLE",
 
@@ -9,12 +9,27 @@ export default {
         list: [
           {
             name: "效果体验",
-            subActive: "0", // 默认显示第一个，情感分析
+            subActive: "0", // 默认显示第一个，后台首页
             submenu: [
               {
                 icon: "el-icon-s-home",
                 name: "后台首页",
                 pathname:"index"
+              },
+              {
+                icon: "el-icon-tickets",
+                name: "分词",
+                pathname:"exp_txtPar"
+              },
+              {
+                icon: "el-icon-mouse",
+                name: "POS",
+                pathname:"exp_txtPos"
+              },
+              {
+                icon: "el-icon-edit",
+                name: "NER",
+                pathname:"exp_txtNer"
               },
               {
                 icon: "el-icon-service",
@@ -27,21 +42,6 @@ export default {
                 name: "文本分类",
                 // pathname:"shop_goods_list"
                 pathname:"exp_txtCla"
-              },
-              {
-                icon: "el-icon-tickets",
-                name: "分词",
-                pathname:"exp_txtPar"
-              },
-              {
-                icon: "el-icon-edit",
-                name: "NER",
-                pathname:"exp_txtNer"
-              },
-              {
-                icon: "el-icon-mouse",
-                name: "POS",
-                pathname:"exp_txtPos"
               }
             ]
           },
