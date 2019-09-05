@@ -3,7 +3,7 @@
     class="bg-white px-3 txt_senti"
     style="margin:-20px; margin-top:-1rem; margin-bottom:0 !important;"
   >
-    <el-tabs v-model="tabIndex" @tab-click="handleClick">
+    <el-tabs v-model="tabIndex">
       <el-tab-pane label="版本1.0">
         <el-form ref="form" label-width="80px">
           <el-form-item label="文本输入"></el-form-item>
@@ -15,33 +15,27 @@
           >
             <el-button @click="submitBtn" slot="append" icon="el-icon-search"></el-button>
           </el-input>
-          <el-form-item v-model="form.waiting" label="识别结果">{{waiting}}</el-form-item>
+          <el-form-item v-model="form.waiting" label="文本标签">{{waiting}}</el-form-item>
           <div
-            v-for="(item, index) in totalNER"
-            :key="index"
-            style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .24); height:45px; width:auto; margin: 0 0 30px 10px; padding:5px"
+            style="display: inline-block; box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .24); height:auto; width:auto; margin: 0 0 10px 10px; padding:10px 10px 5px 10px"
           >
-            <div>
-              <el-tag
-                v-model="form.resultType"
-                type="success"
-                effect="plain"
-                style="align:left; margin:0 auto; text-align:center; width:5%"
-              >
-                {{item}}
-              </el-tag>
-              <el-tag
-                v-model="form.resultType"
-                v-for="subItem in obj[item]"
-                :key="subItem"
-                type="success"
-                effect="plain"
-                style="align:left; margin:0 auto; text-align:center; width:5%; margin-left:10px"
-              >
-                {{ subItem }}
-              </el-tag>
+            <div style="float:left">
+              <el-radio-group v-model="radioTgpActive" size="mini">
+                <el-radio-button
+                  v-for="item in this.tempTag"
+                  :key="item"
+                  :label="item"
+                  @click.native="selectTag(item)"
+                ></el-radio-button>
+              </el-radio-group>
             </div>
           </div>
+          <!-- <div v-html="this.form.output"></div> -->
+          <el-form-item v-model="form.waiting" label="输出结果">{{waiting}}</el-form-item>
+          <div
+            v-html="this.form.output"
+            style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .24); height:auto; width:90%; margin: 0 0 20px 10px; padding:10px 10px 5px 10px"
+          ></div>
         </el-form>
       </el-tab-pane>
     </el-tabs>
@@ -50,32 +44,85 @@
 
 <script>
 import qs from "qs";
-import { constants } from "crypto";
 export default {
   data() {
     return {
-      resArr: [], //获取数据结果
-      PER: [], // 人物标签
-      LOC: [], // 地点标签
-      ORG: [], // 对象标签
-      totalNER: ['PER', 'LOC', 'ORG' ], // 存放总标签
-      obj : {'PER':this.PER, 'LOC':this.LOC, 'ORG':this.ORG},
+      info: [],
+      tempTag: [], // 存放临时标签
       tabIndex: 0,
+      radioTgpActive: "", // 初始化临时标签
+      selectTagName: "", // 存储当前选中的标签名称
+      allTagToEn: {
+        副词: "AD",
+        时态标记: "AS",
+        并列连词: "CC",
+        数词: "CD",
+        从属连词: "CS",
+        助词: "DE", // DEC, DEG, DER, DEV
+        限定词: "DT",
+        外语: "FW",
+        叹词: "IJ",
+        非谓语性形容词: "JJ",
+        "(施事出现)被动词": "LB",
+        方位词: "LC",
+        量词: "M",
+        小品词: "MSP",
+        名词: "NN",
+        专有名词: "NR",
+        时间名词: "NT",
+        序数词: "OD",
+        拟声词: "ON",
+        介词: "P",
+        代词: "PN",
+        标点: "PU",
+        "(施事未出现)被动词": "SB",
+        句末词: "SP",
+        谓词性形容词: "VA",
+        是: "VC",
+        有: "VE",
+        动词: "VV"
+      },
+      allTagToCh: {
+        AD: "副词",
+        AS: "时态标记",
+        CC: "并列连词",
+        CD: "数词",
+        CS: "从属连词",
+        DE: "助词", // DEC, DEG, DER, DEV
+        DT: "限定词",
+        FW: "外语",
+        IJ: "叹词",
+        JJ: "非谓语性形容词",
+        LB: "(施事出现)被动词",
+        LC: "方位词",
+        M: "量词",
+        MSP: "小品词",
+        NN: "名词",
+        NR: "专有名词",
+        NT: "时间名词",
+        OD: "序数词",
+        ON: "拟声词",
+        P: "介词",
+        PN: "代词",
+        PU: "标点",
+        SB: "(施事未出现)被动词",
+        SP: "句末词",
+        VA: "谓词性形容词",
+        VC: "是",
+        VE: "有",
+        VV: "动词"
+      },
       form: {
         input: "", // 输入
         waiting: "", // 分析中，或者分析结束
-        output: "" // 输出
+        output: ""
       }
     };
   },
+
   methods: {
     submitBtn() {
-      // 将数据清空
-      this.resArr = [];
-      this.PER = [];
-      this.LOC = [];
-      this.ORG = [];
-      // 请求API
+      this.radioTgpActive = ""; // 每次提交，都将临时标签初始化
       this.$axios
         .post(
           "/base/pos",
@@ -85,32 +132,47 @@ export default {
           })
         )
         .then(res => {
-          if (res.data.res.ner.length > 0) {
-            this.resArr = res.data.res.ner;
-            this.detectNER()
-          } else {
-            this.resArr = [];
+          this.form.output = "";
+          this.info = res.data.res["pos"];
+          this.tempTag = [];
+          for (let index = 0; index < this.info.length; index++) {
+            if (
+              this.info[index][1] == "DEC" ||
+              this.info[index][1] == "DEG" ||
+              this.info[index][1] == "DER" ||
+              this.info[index][1] == "DEV"
+            ) {
+              this.info[index][1] = "DE";
+            }
+            let nameCh = this.allTagToCh[this.info[index][1]];
+            if (this.tempTag.indexOf(nameCh) == -1) {
+              this.tempTag.push(nameCh);
+            }
           }
-          this.form.waiting = "(完成词性识别)";
+          this.selectTag();
         });
     },
-    detectNER() {
-      for (let index = 0; index < this.resArr.length; index++) {
-        let item = this.resArr[index]
-        // console.log(this.resArr[index].entity);
-        if (item.type == "PER") {
-          this.PER.push(item.entity)
-        } else if (item.type == "LOC") {
-          this.LOC.push(item.entity)
-        } else if (item.type == "ORC") {
-          this.ORC.push(item.entity)
-        }
-        this.obj = {'LOC':this.LOC, 'ORC':this.ORC, 'PER':this.PER}
-      }
-      console.log(this.PER)
-    },
 
-    handelClick(tab, event) {}
+    selectTag(item) {
+      this.form.output = ""; // 清空
+      console.log(item);
+      for (let index = 0; index < this.info.length; index++) {
+        // 判断是否是匹配的标签
+        if (this.allTagToEn[item] == this.info[index][1]) {
+          this.form.output +=
+            '<button type="button" class="btn btn-info btn-sm mr-2 mb-2">' +
+            this.info[index][0] +
+            "</button>";
+        } else {
+          this.form.output +=
+            '<button type="button" class="btn btn-outline-secondary btn-sm mr-2 mb-2">' +
+            this.info[index][0] +
+            "</button>";
+        }
+      }
+    }
+
+    // handelClick(tab, event) {}
   }
 };
 </script>

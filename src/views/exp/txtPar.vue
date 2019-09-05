@@ -3,7 +3,7 @@
     class="bg-white px-3 txt_senti"
     style="margin:-20px; margin-top:-1rem; margin-bottom:0 !important;"
   >
-    <el-tabs v-model="tabIndex" @tab-click="handleClick">
+    <el-tabs v-model="tabIndex">
       <el-tab-pane label="版本1.0">
         <el-form ref="form" label-width="80px">
           <el-form-item label="文本输入"></el-form-item>
@@ -71,7 +71,7 @@ export default {
         });
       this.waiting = "(完成分词)";
     },
-    handelClick(tab, event) {}
+    // handelClick(tab, event) {}
   }
 };
 </script>
