@@ -8,13 +8,31 @@
         <el-form ref="form" label-width="80px">
           <el-form-item label="文本输入"></el-form-item>
           <el-input
+            class="w-50"
+            type="textarea"
+            :rows="4"
+            placeholder="例如：创新工场大湾区人工智能工程院"
+            style="margin-left:10px"
+            v-model="form.input"
+          ></el-input>
+          <div style="width:50%">
+            <center>
+              <button
+                type="button"
+                class="btn btn-outline-success btn-sm"
+                style="margin:20px 0 20px 0; width:40%"
+                @click="submitBtn"
+              >提交分析</button>
+            </center>
+          </div>
+          <!-- <el-input
             v-model="form.input"
             class="w-50"
             style="margin-left:10px"
             placeholder="例如：创新工场大湾区人工智能工程院"
           >
             <el-button @click="submitBtn" slot="append" icon="el-icon-search"></el-button>
-          </el-input>
+          </el-input>-->
           <el-form-item v-model="form.waiting" label="分类结果">{{waiting}}</el-form-item>
           <div
             style="display: inline-block; box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .24); height:45px; width:auto; margin: 0 0 30px 10px; padding:5px"
@@ -53,19 +71,19 @@ export default {
   },
   methods: {
     submitBtn() {
-        this.$axios
-          .post(
-            "/base/classifier",
-            qs.stringify({
-              version: "v0.2",
-              text: this.form.input
-            })
-          )
-          .then(res => {
-            this.info = res.data.res['label']
-            console.log(res.data);
-          });
-          this.waiting = "(完成分类)"
+      this.$axios
+        .post(
+          "/base/classifier",
+          qs.stringify({
+            version: "v0.2",
+            text: this.form.input
+          })
+        )
+        .then(res => {
+          this.info = res.data.res["label"];
+          console.log(res.data);
+        });
+      this.waiting = "(完成分类)";
     },
     handelClick(tab, event) {}
   }
