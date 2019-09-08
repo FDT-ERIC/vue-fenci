@@ -4,7 +4,7 @@
     style="margin:-20px; margin-top:-1rem; margin-bottom:0 !important;"
   >
     <el-tabs v-model="tabIndex">
-      <el-tab-pane label="版本1.0">
+      <el-tab-pane label="Version 0.2">
         <el-form ref="form" label-width="80px">
           <el-form-item label="文本输入"></el-form-item>
           <el-input
@@ -55,11 +55,13 @@ export default {
       allTagToEn: {
         副词: "AD",
         时态标记: "AS",
+        "“把”字句": "BA",
         并列连词: "CC",
         数词: "CD",
         从属连词: "CS",
         助词: "DE", // DEC, DEG, DER, DEV
         限定词: "DT",
+        等: "ETC",
         外语: "FW",
         叹词: "IJ",
         非谓语性形容词: "JJ",
@@ -85,11 +87,13 @@ export default {
       allTagToCh: {
         AD: "副词",
         AS: "时态标记",
+        BA: "“把”字句",
         CC: "并列连词",
         CD: "数词",
         CS: "从属连词",
         DE: "助词", // DEC, DEG, DER, DEV
         DT: "限定词",
+        ETC: "等",
         FW: "外语",
         IJ: "叹词",
         JJ: "非谓语性形容词",

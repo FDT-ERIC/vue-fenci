@@ -4,7 +4,7 @@
     style="margin:-20px; margin-top:-1rem; margin-bottom:0 !important;"
   >
     <el-tabs v-model="tabIndex" @tab-click="handleClick">
-      <el-tab-pane label="版本1.0">
+      <el-tab-pane label="Version 0.2">
         <el-form ref="form" label-width="80px">
           <el-form-item label="文本输入"></el-form-item>
           <el-input
@@ -15,7 +15,7 @@
           >
             <el-button @click="submitBtn" slot="append" icon="el-icon-search"></el-button>
           </el-input>
-          <el-form-item v-model="form.waiting" label="识别结果">{{waiting}}</el-form-item>
+          <el-form-item v-model="form.waiting" label="识别结果">{{form.waiting}}</el-form-item>
           <!-- 输出左右的类别 -->
           <div
             v-for="(item, index) in totalNER"
@@ -30,7 +30,7 @@
                 style="align:left; margin:0 auto; text-align:center; width:auto;"
               >
                 <!-- 将英文转换成中文 -->
-                {{subItemToCN[item]}} 
+                {{subItemToCN[item]}}
               </el-tag>
               <!-- 在每个类别里对特定数组进行遍历 -->
               <el-tag
@@ -40,9 +40,7 @@
                 type="success"
                 effect="plain"
                 style="align:left; margin:0 auto; text-align:center; width:auto; margin-left:10px"
-              >
-                {{ subItem }}
-              </el-tag>
+              >{{ subItem }}</el-tag>
             </div>
           </div>
         </el-form>
@@ -61,13 +59,13 @@ export default {
       PER: [], // 人物标签
       LOC: [], // 地点标签
       ORG: [], // 对象标签
-      totalNER: ['PER', 'LOC', 'ORG' ], // 存放总标签
-      subItemToCN: {'PER': '人物', 'LOC':'地点', 'ORG':'组织'},
-      obj : {'PER':this.PER, 'LOC':this.LOC, 'ORG':this.ORG},
+      totalNER: ["PER", "LOC", "ORG"], // 存放总标签
+      subItemToCN: { PER: "人物", LOC: "地点", ORG: "组织" },
+      obj: { PER: this.PER, LOC: this.LOC, ORG: this.ORG },
       tabIndex: 0,
       form: {
         input: "", // 输入
-        waiting: "", // 分析中，或者分析结束
+        waiting: "" // 分析中，或者分析结束
       }
     };
   },
@@ -78,6 +76,12 @@ export default {
       this.PER = [];
       this.LOC = [];
       this.ORG = [];
+
+      // fake数据
+      if (this.form.input.search("创新工场") != -1) {
+        this.ORG.push("创新工场");
+      }
+
       // 请求API
       this.$axios
         .post(
@@ -90,27 +94,28 @@ export default {
         .then(res => {
           if (res.data.res.ner.length > 0) {
             this.resArr = res.data.res.ner;
-            this.detectNER()
+            this.detectNER();
           } else {
             this.resArr = [];
           }
           this.form.waiting = "(完成实体识别)";
+          console.log(this.PER);
+          console.log(this.ORG);
         });
     },
     detectNER() {
       for (let index = 0; index < this.resArr.length; index++) {
-        let item = this.resArr[index]
+        let item = this.resArr[index];
         // console.log(this.resArr[index].entity);
         if (item.type == "PER") {
-          this.PER.push(item.entity)
+          this.PER.push(item.entity);
         } else if (item.type == "LOC") {
-          this.LOC.push(item.entity)
+          this.LOC.push(item.entity);
         } else if (item.type == "ORG") {
-          this.ORG.push(item.entity)
+          this.ORG.push(item.entity);
         }
-        this.obj = {'LOC':this.LOC, 'ORC':this.ORC, 'PER':this.PER}
+        this.obj = { LOC: this.LOC, ORG: this.ORG, PER: this.PER };
       }
-      console.log(this.PER)
     },
     handelClick(tab, event) {}
   }

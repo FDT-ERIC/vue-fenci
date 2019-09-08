@@ -31,7 +31,7 @@
               <el-avatar
                 size="small"
                 src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
-              ></el-avatar>账户信息
+              ></el-avatar> 账户信息
             </template>
             <el-menu-item index="100-1">个人中心</el-menu-item>
             <el-menu-item index="100-2">退出登录</el-menu-item>

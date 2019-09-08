@@ -4,7 +4,7 @@
     style="margin:-20px; margin-top:-1rem; margin-bottom:0 !important;"
   >
     <el-tabs v-model="tabIndex" @tab-click="handleClick">
-      <el-tab-pane label="版本1.0">
+      <el-tab-pane label="Version 0.2">
         <el-form ref="form" label-width="80px">
           <el-form-item label="文本输入"></el-form-item>
           <el-input
