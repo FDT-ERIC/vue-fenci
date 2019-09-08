@@ -6,7 +6,13 @@
     <el-tabs v-model="tabIndex" @tab-click="handleClick">
       <el-tab-pane label="Version 0.2">
         <el-form ref="form" label-width="80px">
-          <el-form-item label="文本输入"></el-form-item>
+          <el-form-item label="文本输入">
+            <el-button-group style="margin-left:1%">
+              <el-button size="mini" type="success" icon="el-icon-edit" plain @click="shiliBtn(1)">示例 1</el-button>
+              <el-button size="mini" type="success" icon="el-icon-edit" plain @click="shiliBtn(2)">示例 2</el-button>
+              <el-button size="mini" type="success" icon="el-icon-delete" plain @click="shiliBtn(0)">清空</el-button>
+            </el-button-group>
+          </el-form-item>
           <el-input
             class="w-50"
             type="textarea"
@@ -77,7 +83,19 @@ export default {
         });
       this.waiting = "(完成分类)";
     },
-    handelClick(tab, event) {}
+
+    // 添加示例按钮点击事件
+    shiliBtn(value) {
+      if (value == 1) {
+        this.form.input = "近日， Viela Bio 公司宣布，评估抗 CD19 单抗 inebilizumab（前称 MEDI-551）治疗视神经脊髓炎频谱障碍（NMOSD）的关键性研究 N-MOmentum（NCT02200770）的结果已发表于医学期刊《柳叶刀》（The Lancet）。 NMOSD 是一种罕见的、严重的、复发性、神经炎症性自身免疫性疾病，可导致严重的肌肉无力和瘫痪、视力丧失、呼吸衰竭和神经性疼痛。"
+      } else if (value == 2) {
+        this.form.input = "教学环境品控不到位。传统线上要么是录课的形式，要么是真人的形式。录课是跟着视频学，学习效果没有互动。真人直播 1000 个学员就有 1000 个老师，这和线下是一样的，线下上学的时候都会挑好老师，线上也是一样，不是所有的老师教学质量都是一样好，很难做到品控。"
+      } else if (value == 0) {
+        this.form.input = ""
+      }
+    }
+
+    // handelClick(tab, event) {}
   }
 };
 </script>

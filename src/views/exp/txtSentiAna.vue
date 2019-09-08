@@ -7,15 +7,13 @@
       <!-- 版本v0.1 -->
       <el-tab-pane label="Version 0.2">
         <el-form ref="v0.2" label-width="80px">
-          <el-form-item label="文本输入"></el-form-item>
-          <!-- <el-input
-            v-model="form.input"
-            class="w-50"
-            style="margin-left:10px"
-            placeholder="例如：创新工场大湾区人工智能工程院"
-          >
-            <el-button @click="submitBtn" slot="append" icon="el-icon-search"></el-button>
-          </el-input> -->
+          <el-form-item label="文本输入">
+            <el-button-group style="margin-left:1%">
+              <el-button size="mini" type="success" icon="el-icon-edit" plain @click="shiliBtn(1)">示例 1</el-button>
+              <el-button size="mini" type="success" icon="el-icon-edit" plain @click="shiliBtn(2)">示例 2</el-button>
+              <el-button size="mini" type="success" icon="el-icon-delete" plain @click="shiliBtn(0)">清空</el-button>
+            </el-button-group>
+          </el-form-item>
           <el-input
             class="w-50"
             type="textarea"
@@ -35,9 +33,6 @@
             </center>
           </div>
           <el-form-item v-model="form.waiting" label="分析结果">{{waiting}}</el-form-item>
-          <!-- <el-form-item v-model="form.waiting" label="分析结果">
-            <h1 v-show="elementVisible" class="hideElement"> 分析完成 </h1>
-          </el-form-item> -->
 
           <div
             style="display: inline-block; box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .24); height:45px; width:auto; margin: 0 0 30px 10px; padding:5px"
@@ -56,36 +51,6 @@
           </div>
         </el-form>
       </el-tab-pane>
-      <!-- 版本v0.2 -->
-      <!-- <el-tab-pane label="增加词信息的pretrain模型">
-        <el-form ref="form" label-width="80px">
-          <el-form-item label="文本输入"></el-form-item>
-          <el-input
-            v-model="form.input"
-            class="w-50"
-            style="margin-left:10px"
-            placeholder="例如：创新工场大湾区人工智能工程院"
-          >
-            <el-button @click="submitBtn" slot="append" icon="el-icon-search"></el-button>
-          </el-input>
-          <el-form-item v-model="form.waiting" label="分析结果">{{waiting}}</el-form-item>
-
-          <div
-            style="display: inline-block; box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .24); height:45px; width:auto; margin: 0 0 30px 10px; padding:5px"
-          >
-            <div style="text-align:center">
-              <el-tag
-                v-model="form.resultType"
-                :type="this.resultType"
-                effect="plain"
-                style="display:block;margin:0 auto"
-              >
-                {{this.info}}
-              </el-tag>
-            </div>
-          </div>
-        </el-form>
-      </el-tab-pane>-->
     </el-tabs>
   </div>
 </template>
@@ -131,7 +96,18 @@ export default {
             this.waiting = "(完成分析)";
           });
     },
-    handelClick(tab, event) {}
+
+    // 添加示例按钮点击事件
+    shiliBtn(value) {
+      if (value == 1) {
+        this.form.input = "9月4日，被誉为“伤心的游戏”正式登录国服，该公司一跃成为游戏市场的大赢家"
+      } else if (value == 2) {
+        this.form.input = "2010年，“愤怒的小鸟”这款游戏成功推出PC端，获得大量玩家的关注"
+      } else if (value == 0) {
+        this.form.input = ""
+      }
+    }
+    // handelClick(tab, event) {}
   },
 
   // created() {
