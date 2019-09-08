@@ -25,14 +25,6 @@
               >提交分析</button>
             </center>
           </div>
-          <!-- <el-input
-            v-model="form.input"
-            class="w-50"
-            style="margin-left:10px"
-            placeholder="例如：创新工场大湾区人工智能工程院"
-          >
-            <el-button @click="submitBtn" slot="append" icon="el-icon-search"></el-button>
-          </el-input>-->
           <el-form-item v-model="form.waiting" label="分类结果">{{waiting}}</el-form-item>
           <div
             style="display: inline-block; box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .24); height:45px; width:auto; margin: 0 0 30px 10px; padding:5px"

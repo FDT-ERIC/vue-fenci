@@ -7,14 +7,32 @@
       <el-tab-pane label="Version 0.2">
         <el-form ref="form" label-width="80px">
           <el-form-item label="文本输入"></el-form-item>
-          <el-input
+          <!-- <el-input
             v-model="form.input"
             class="w-50"
             style="margin-left:10px"
             placeholder="例如：创新工场大湾区人工智能工程院"
           >
             <el-button @click="submitBtn" slot="append" icon="el-icon-search"></el-button>
-          </el-input>
+          </el-input> -->
+          <el-input
+            class="w-50"
+            type="textarea"
+            :rows="4"
+            placeholder="例如：创新工场大湾区人工智能工程院"
+            style="margin-left:10px"
+            v-model="form.input"
+          ></el-input>
+          <div style="width:50%">
+            <center>
+              <button
+                type="button"
+                class="btn btn-outline-success btn-sm"
+                style="margin:20px 0 20px 0; width:40%"
+                @click="submitBtn"
+              >提交分析</button>
+            </center>
+          </div>
           <el-form-item v-model="form.waiting" label="识别结果">{{form.waiting}}</el-form-item>
           <!-- 输出左右的类别 -->
           <div
