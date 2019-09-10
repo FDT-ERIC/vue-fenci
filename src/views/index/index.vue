@@ -1,19 +1,22 @@
 <template>
-  <div style="height:50px">
-    <!-- <div class="sub-title">输入后匹配输入建议</div> -->
-    <el-autocomplete
-      class="inline-input"
-      type="textarea"
-      autosize
-      style="width:100%;"
-      v-model="state2"
-      placeholder="请输入内容"
-      :fetch-suggestions="querySearch"
-      :trigger-on-focus="false"
-      @select="handleSelect"
-    ></el-autocomplete>
+  <div>
+    <h4 style="text-align:center; margin-bottom:3%; margin-top:3%">文本生成展示</h4>
+    <div style="height:auto">
+      <el-autocomplete
+        class="inline-input"
+        type="textarea"
+        autosize
+        style="width:100%;"
+        v-model="state2"
+        placeholder="请输入文本"
+        :fetch-suggestions="querySearch"
+        :trigger-on-focus="false"
+        @select="handleSelect"
+      ></el-autocomplete>
+    </div>
   </div>
 </template>
+
 
 <script>
 export default {
