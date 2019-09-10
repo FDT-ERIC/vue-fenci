@@ -26,7 +26,7 @@
               <button
                 type="button"
                 class="btn btn-outline-success btn-sm"
-                style="margin:20px 0 20px 0; width:40%"
+                style="margin:20px 0 5px 0; width:40%"
                 @click="submitBtn"
               >提交分析</button>
             </center>
@@ -197,7 +197,7 @@ export default {
       if (value == 1) {
         this.form.input = "9月4日，被誉为机器学习和神经网络领域的顶级会议之一的NEURIPS2019揭晓收录论文名单"
       } else if (value == 2) {
-        this.form.input = "创新工场人工智能工程院以“科研+工程实验室”模式，规划研发方向，组建研发团队。目前设有医疗AI、教育 AI、机器人、机器学习理论、计算金融等面向前沿科技与应用方向的实验室，其他新方向正在规划中"
+        this.form.input = "创新工场人工智能工程院以“科研+工程实验室”模式，规划研发方向，组建研发团队。目前设有医疗AI、教育AI、机器人、机器学习理论、计算金融等面向前沿科技与应用方向的实验室，其他新方向正在规划中"
       } else if (value == 0) {
         this.form.input = ""
       }
