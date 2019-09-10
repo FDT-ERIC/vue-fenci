@@ -26,7 +26,7 @@
               <button
                 type="button"
                 class="btn btn-outline-success btn-sm"
-                style="margin:20px 0 5px 0; width:40%"
+                style="margin:20px 0 20px 0; width:40%"
                 @click="submitBtn"
               >提交分析</button>
             </center>
@@ -50,7 +50,7 @@
           <el-form-item v-model="form.waiting" label="输出结果">{{waiting}}</el-form-item>
           <div
             v-html="this.form.output"
-            style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .24); height:auto; width:90%; margin: 0 0 20px 10px; padding:10px 10px 5px 10px"
+            style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .24); height:auto; width:90%; margin: 0 0 8% 10px; padding:10px 10px 5px 10px"
           ></div>
         </el-form>
       </el-tab-pane>
