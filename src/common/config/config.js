@@ -56,8 +56,8 @@ export default {
             ]
           },
           { name: "合作方案" },
-          { name: "AI加速器" },
-          { name: "AI市场" }
+          // { name: "AI加速器" },
+          // { name: "AI市场" }
         ]
       }
 }
