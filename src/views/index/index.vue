@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4 style="text-align:center; margin-bottom:3%; margin-top:3%">文本生成展示</h4>
+    <h4 style="text-align:center; margin-bottom:3%; margin-top:3%">文本生成（辅助写作）展示</h4>
     <div style="height:auto">
       <el-autocomplete
         class="inline-input"

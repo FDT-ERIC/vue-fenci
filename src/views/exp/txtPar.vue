@@ -8,9 +8,27 @@
         <el-form ref="form" label-width="80px">
           <el-form-item label="文本输入">
             <el-button-group style="margin-left:1%">
-              <el-button size="mini" type="success" icon="el-icon-edit" plain @click="shiliBtn(1)">示例 1</el-button>
-              <el-button size="mini" type="success" icon="el-icon-edit" plain @click="shiliBtn(2)">示例 2</el-button>
-              <el-button size="mini" type="success" icon="el-icon-delete" plain @click="shiliBtn(0)">清空</el-button>
+              <el-button
+                size="mini"
+                type="success"
+                icon="el-icon-edit"
+                plain
+                @click="shiliBtn(1)"
+              >示例 1</el-button>
+              <el-button
+                size="mini"
+                type="success"
+                icon="el-icon-edit"
+                plain
+                @click="shiliBtn(2)"
+              >示例 2</el-button>
+              <el-button
+                size="mini"
+                type="success"
+                icon="el-icon-delete"
+                plain
+                @click="shiliBtn(0)"
+              >清空</el-button>
             </el-button-group>
           </el-form-item>
           <el-input
@@ -77,25 +95,40 @@ export default {
           "/base/cws",
           qs.stringify({
             version: "v0.2",
-            text: this.form.input.replace(/\s+/g,"")
+            text: this.form.input.replace(/\s+/g, "")
           })
         )
         .then(res => {
           this.info = res.data.res["words"];
           this.arr = res.data.res["words"];
-          console.log(res.data);
         });
       this.waiting = "(完成分词)";
+
+      // this.$axios
+      //   .post(
+      //     "/base/cws",
+      //     qs.stringify({
+      //       version: "v0.2",
+      //       text: this.form.input.replace(/\s+/g,"")
+      //     })
+      //   )
+      //   .then(res => {
+      //     this.info = res.data.res["words"];
+      //     this.arr = res.data.res["words"];
+      //   });
+      // this.waiting = "(完成分词)";
     },
 
     // 添加示例按钮点击事件
     shiliBtn(value) {
       if (value == 1) {
-        this.form.input = "创新工场由李开复博士创办于2009年9月，作为国内的创业投资机构，创新工场深耕在人工智能&大数据、消费升级、“B2B”&企业升级、教育、消费互联网、医疗等领域，并不断探索与创新"
+        this.form.input =
+          "一名北京大学生在今天的考试中踌躇满志，对于第一名是志在必得";
       } else if (value == 2) {
-        this.form.input = "2016年9月，创新工场人工智能工程院成立，李开复博士亲任院长，王咏刚担任执行院长，与来自世界顶级机构的著名工程师和顶尖科学家共同探索技术、数据、人才、商业价值的结合"
+        this.form.input =
+          "据高考最新报道，多名衡水中学生斩获北大清华的录取名额";
       } else if (value == 0) {
-        this.form.input = ""
+        this.form.input = "";
       }
     }
 
