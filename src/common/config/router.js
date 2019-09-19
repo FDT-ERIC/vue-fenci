@@ -7,23 +7,14 @@
 
 let routes = [
     {
-        path:'/',
+        path:'/app',
         name:'layout',
-        redirect:{name:'index'}, //重定向到 index 主界面
+        redirect:{name:'app'}, //重定向到 index 主界面
         // component:()=>import('../../views/layout.vue'),
         component:'layout',
         children:[
-            // {
-            //     // path:'/index',
-            //     // name:'index',
-            //     // component:()=>import('../../views/index/index.vue')
-            //     meta:{title:'效果体验'},
-            //     component:'exp/home'
-            // },
             {
-                // path:'/shop/goods/list',
                 meta:{title:'后台首页'},
-                // component:'shop/goods/list'
                 component:'index/index'
             },
             {

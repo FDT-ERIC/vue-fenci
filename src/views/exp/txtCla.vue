@@ -71,7 +71,7 @@ export default {
     submitBtn() {
       this.$axios
         .post(
-          "/base/classifier",
+          "/api/cls",
           qs.stringify({
             version: "v0.2",
             text: this.form.input

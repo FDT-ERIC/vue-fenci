@@ -101,7 +101,7 @@ export default {
       // 请求API
       this.$axios
         .post(
-          "/base/ner",
+          "/api/ner",
           qs.stringify({
             version: "v0.2",
             text: this.form.input

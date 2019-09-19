@@ -92,7 +92,7 @@ export default {
     submitBtn() {
       this.$axios
         .post(
-          "/base/cws",
+          "/api/cws",
           qs.stringify({
             version: "v0.2",
             text: this.form.input.replace(/\s+/g, "")

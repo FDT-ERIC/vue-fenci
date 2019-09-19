@@ -145,7 +145,7 @@ export default {
       this.radioTgpActive = ""; // 每次提交，都将临时标签初始化
       this.$axios
         .post(
-          "/base/pos",
+          "/api/pos",
           qs.stringify({
             version: "v0.2",
             text: this.form.input

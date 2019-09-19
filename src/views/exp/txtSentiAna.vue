@@ -79,7 +79,7 @@ export default {
       // (this.form.info = "分析中，请稍后"), // 没作用
         this.$axios
           .post(
-            "/base/sentiment_analysis",
+            "/api/sta",
             qs.stringify({ text: this.form.input })
           )
           .then(res => {
