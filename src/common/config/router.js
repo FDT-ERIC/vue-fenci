@@ -7,58 +7,58 @@
 
 let routes = [
     {
-        path:'/app',
-        name:'layout',
-        redirect:{name:'app'}, //重定向到 index 主界面
+        path:'/',
+        name:'app_layout',
+        redirect:{name:'app_index'}, //重定向到 index 主界面
         // component:()=>import('../../views/layout.vue'),
-        component:'layout',
+        component:'app/layout',
         children:[
             {
                 meta:{title:'后台首页'},
-                component:'index/index'
+                component:'app/index/index'
             },
             {
                 // path:'/shop/goods/list',
                 meta:{title:'情感分析'},
                 // component:'shop/goods/list'
-                component:'exp/txtSentiAna'
+                component:'app/exp/txtSentiAna'
             },
             {
                 // path:'/shop/goods/list',
                 meta:{title:'文本分类'},
                 // component:'shop/goods/list'
-                component:'exp/txtCla'
+                component:'app/exp/txtCla'
             },
             {
                 // path:'/shop/goods/list',
                 meta:{title:'分词'},
                 // component:'shop/goods/list'
-                component:'exp/txtPar'
+                component:'app/exp/txtPar'
             },
             {
                 // path:'/shop/goods/list',
                 meta:{title:'NER'},
                 // component:'shop/goods/list'
-                component:'exp/txtNer'
+                component:'app/exp/txtNer'
             },
             {
                 // path:'/shop/goods/list',
                 meta:{title:'POS'},
                 // component:'shop/goods/list'
-                component:'exp/txtPos'
+                component:'app/exp/txtPos'
             },
         ]
     },
     {
         path:'/',
-        name:'layout',
-        redirect:{name:'index'}, //重定向到 index 主界面
+        name:'app_layout',
+        redirect:{name:'app_index'}, //重定向到 index 主界面
         // component:()=>import('../../views/layout.vue'),
-        component:'layout',
+        component:'app/layout',
         children:[
             {
                 meta:{title: '算法解析'},
-                component: 'solution/test'
+                component: 'app/solution/test'
             }
         ]
     },
@@ -67,11 +67,11 @@ let routes = [
         // name:'login',
         // component:()=>import('../../views/login/index.vue')
         meta:{title:'用户登录'},
-        component:'login/index'
+        component:'app/login/index'
     },
     {
         path:'*',
-        redirect:{name:'index'}, //网址错误时，重定向到 index 主界面
+        redirect:{name:'app_index'}, //网址错误时，重定向到 index 主界面
     },
 ]
 
@@ -80,6 +80,7 @@ let getRoutes = function() {
     // 生成路由详细信息
     createRoute(routes)
     return routes
+    
 }
 
 // 自动生成路由 (递归)
@@ -95,6 +96,7 @@ function createRoute(arr) {
         arr[i].path = arr[i].path || `/${val}`
         // 自动生成 component
         let componentFun = import(`../../views/${arr[i].component}.vue`)
+        console.log(arr[i].component)
         arr[i].component = ()=>componentFun
         // 存在 children 子件时，递归
         if (arr[i].children && arr[i].children.length > 0) {
@@ -117,3 +119,4 @@ function getValue(str) {
 }
 
 export default getRoutes()
+

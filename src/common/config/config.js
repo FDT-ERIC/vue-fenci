@@ -14,34 +14,34 @@ export default {
               {
                 icon: "el-icon-s-home",
                 name: "后台首页",
-                pathname:"index"
+                pathname:"app_index"
               },
               {
                 icon: "el-icon-tickets",
                 name: "分词",
-                pathname:"exp_txtPar"
+                pathname:"app_exp_txtPar"
               },
               {
                 icon: "el-icon-mouse",
                 name: "POS",
-                pathname:"exp_txtPos"
+                pathname:"app_exp_txtPos"
               },
               {
                 icon: "el-icon-edit",
                 name: "NER",
-                pathname:"exp_txtNer"
+                pathname:"app_exp_txtNer"
               },
               {
                 icon: "el-icon-service",
                 name: "情感分析",
                 // pathname:"shop_goods_list"
-                pathname:"exp_txtSentiAna"
+                pathname:"app_exp_txtSentiAna"
               },
               {
                 icon: "el-icon-notebook-1",
                 name: "文本分类",
                 // pathname:"shop_goods_list"
-                pathname:"exp_txtCla"
+                pathname:"app_exp_txtCla"
               }
             ]
           },
@@ -51,7 +51,7 @@ export default {
                 {
                     icon: "el-icon-notebook-1",
                     name: "算法解析",
-                    pathname:"solution_test"
+                    pathname:"app_solution_test"
                 }
             ]
           },

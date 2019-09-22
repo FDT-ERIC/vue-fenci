@@ -170,7 +170,7 @@ export default {
       b.forEach((v, k) => {
         // 过滤 layout 和 index
         // console.log(v)
-        if (v.name === "index" || v.name === "layout") {
+        if (v.name === "app_index" || v.name === "app_layout") {
           this.bran = [];
           return;
         }
@@ -180,7 +180,7 @@ export default {
           title: v.meta.title
         });
         if (arr.length > 0) {
-          arr.unshift({ name: "index", path: "/index", title: "效果体验" });
+          arr.unshift({ name: "app_index", path: "app/index", title: "效果体验" });
         }
         this.bran = arr;
       });

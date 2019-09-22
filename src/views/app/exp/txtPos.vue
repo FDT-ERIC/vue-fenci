@@ -8,9 +8,27 @@
         <el-form ref="form" label-width="80px">
           <el-form-item label="文本输入">
             <el-button-group style="margin-left:1%">
-              <el-button size="mini" type="success" icon="el-icon-edit" plain @click="shiliBtn(1)">示例 1</el-button>
-              <el-button size="mini" type="success" icon="el-icon-edit" plain @click="shiliBtn(2)">示例 2</el-button>
-              <el-button size="mini" type="success" icon="el-icon-delete" plain @click="shiliBtn(0)">清空</el-button>
+              <el-button
+                size="mini"
+                type="success"
+                icon="el-icon-edit"
+                plain
+                @click="shiliBtn(1)"
+              >示例 1</el-button>
+              <el-button
+                size="mini"
+                type="success"
+                icon="el-icon-edit"
+                plain
+                @click="shiliBtn(2)"
+              >示例 2</el-button>
+              <el-button
+                size="mini"
+                type="success"
+                icon="el-icon-delete"
+                plain
+                @click="shiliBtn(0)"
+              >清空</el-button>
             </el-button-group>
           </el-form-item>
           <el-input
@@ -180,14 +198,18 @@ export default {
         // 判断是否是匹配的标签
         if (this.allTagToEn[item] == this.info[index][1]) {
           this.form.output +=
-            '<button type="button" class="btn btn-info btn-sm mr-2 mb-2">' +
+            '<button type="button" class="btn btn-info btn-sm mr-2 mb-2"><div>' +
             this.info[index][0] +
-            "</button>";
+            "</div><div>" +
+            this.info[index][1] +
+            "</div></button>";
         } else {
           this.form.output +=
-            '<button type="button" class="btn btn-outline-secondary btn-sm mr-2 mb-2">' +
+            '<button type="button" class="btn btn-outline-secondary btn-sm mr-2 mb-2"><div>' +
             this.info[index][0] +
-            "</button>";
+            "</div><div>" +
+            this.info[index][1] +
+            "</div></button>";
         }
       }
     },
@@ -195,14 +217,16 @@ export default {
     // 添加示例按钮点击事件
     shiliBtn(value) {
       if (value == 1) {
-        this.form.input = "9月4日，被誉为机器学习和神经网络领域的顶级会议之一的NEURIPS2019揭晓收录论文名单"
+        this.form.input =
+          "9月4日，被誉为机器学习和神经网络领域的顶级会议之一的NEURIPS2019揭晓收录论文名单";
       } else if (value == 2) {
-        this.form.input = "创新工场人工智能工程院以“科研+工程实验室”模式，规划研发方向，组建研发团队。目前设有医疗AI、教育AI、机器人、机器学习理论、计算金融等面向前沿科技与应用方向的实验室，其他新方向正在规划中"
+        this.form.input =
+          "创新工场人工智能工程院以“科研+工程实验室”模式，规划研发方向，组建研发团队。目前设有医疗AI、教育AI、机器人、机器学习理论、计算金融等面向前沿科技与应用方向的实验室，其他新方向正在规划中";
       } else if (value == 0) {
-        this.form.input = ""
+        this.form.input = "";
       }
     }
-    
+
     // handelClick(tab, event) {}
   }
 };

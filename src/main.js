@@ -12,6 +12,7 @@ Vue.config.productionTip = false
 Vue.prototype.$axios = axios; // 可以全局使用它进行接口调用
 
 new Vue({
+  mode:'history',
   router,
   render: h => h(App),
 }).$mount('#app')
