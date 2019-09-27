@@ -1,7 +1,7 @@
 <template>
   <div
     class="bg-white px-3 txt_senti"
-    style="margin:-20px; margin-top:-1rem; margin-bottom:0 !important;"
+    style="margin:-20px; margin-top:-1rem; margin-bottom:5% !important;"
   >
     <el-tabs v-model="tabIndex">
       <el-tab-pane label="Version 0.2">
@@ -51,7 +51,7 @@
           </div>
           <el-form-item v-model="form.waiting" label="分词结果">{{waiting}}</el-form-item>
           <div
-            v-for="(item, index) in arr"
+            v-for="(item, index) in not_null"
             :key="index"
             style="display: inline-block; box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .24); height:45px; width:auto; margin: 0 0 30px 10px; padding:5px"
           >
@@ -100,24 +100,11 @@ export default {
           })
         )
         .then(res => {
-          this.info = res.data.res["words"];
+          // this.info = res.data.res["words"];
+          console.log(res.data.res)
           this.arr = res.data.res["words"];
         });
       this.waiting = "(完成分词)";
-
-      // this.$axios
-      //   .post(
-      //     "/base/cws",
-      //     qs.stringify({
-      //       version: "v0.2",
-      //       text: this.form.input.replace(/\s+/g,"")
-      //     })
-      //   )
-      //   .then(res => {
-      //     this.info = res.data.res["words"];
-      //     this.arr = res.data.res["words"];
-      //   });
-      // this.waiting = "(完成分词)";
     },
 
     // 添加示例按钮点击事件
@@ -134,6 +121,15 @@ export default {
     }
 
     // handelClick(tab, event) {}
+  },
+  computed: {
+    // 把返回的结果的空格去掉
+    not_null() {
+      var arr_withoutSpace = this.arr.filter(item => {
+        return item != ' '
+      })
+      return arr_withoutSpace
+    }
   }
 };
 </script>
