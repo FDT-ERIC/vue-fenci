@@ -95,7 +95,8 @@ export default {
           "/api/cws",
           qs.stringify({
             version: "v0.2",
-            text: this.form.input.replace(/\s+/g, "")
+            text: this.form.input
+            // text: this.form.input.replace(/\s+/g, "")
           })
         )
         .then(res => {
